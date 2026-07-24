@@ -6,7 +6,8 @@ import { useTrip } from '@/composables/useTrip'
 import { usePermission } from '@/composables/usePermission'
 import ConfirmDialog from '@/components/common/ConfirmDialog.vue'
 import LoadingState from '@/components/common/LoadingState.vue'
-import type { TripRole } from '@/types/trip'
+import * as memberService from '@/services/memberService'
+import type { AppUser, TripRole } from '@/types/trip'
 import { TRIP_ROLE_LABELS } from '@/types/trip'
 
 const route = useRoute()
@@ -28,28 +29,54 @@ const {
 const { canManageMembers } = usePermission(myRole)
 
 const tripId = computed(() => String(route.params.tripId))
-const inviteEmail = ref('')
+const allUsers = ref<AppUser[]>([])
+const selectedUserId = ref('')
 const inviteRole = ref<TripRole>('viewer')
 const localError = ref<string | null>(null)
 const memberPendingRemove = ref<string | null>(null)
+const isLoadingUsers = ref(false)
+
+const memberUserIds = computed(() => new Set(members.value.map((m) => m.user_id)))
+
+/** 尚未加入此旅行的使用者 */
+const candidateUsers = computed(() =>
+  allUsers.value.filter((u) => !memberUserIds.value.has(u.id)),
+)
 
 watch(
   tripId,
-  (id) => {
-    void fetchTripDetail(id)
+  async (id) => {
+    await fetchTripDetail(id)
+    if (canManageMembers.value) {
+      await loadUsers()
+    }
   },
   { immediate: true },
 )
 
-function validateEmail(value: string): string | null {
-  const trimmed = value.trim()
-  if (!trimmed) {
-    return '請輸入 Email'
+watch(canManageMembers, async (canManage) => {
+  if (canManage && allUsers.value.length === 0) {
+    await loadUsers()
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-    return 'Email 格式不正確'
+})
+
+async function loadUsers() {
+  isLoadingUsers.value = true
+  try {
+    allUsers.value = await memberService.listAppUsers()
+  } catch (error) {
+    localError.value =
+      error instanceof Error ? error.message : '無法載入使用者列表'
+  } finally {
+    isLoadingUsers.value = false
   }
-  return null
+}
+
+function userLabel(appUser: AppUser): string {
+  if (appUser.email && appUser.display_name) {
+    return `${appUser.display_name}（${appUser.email}）`
+  }
+  return appUser.email || appUser.display_name || appUser.id.slice(0, 8)
 }
 
 async function handleAddMember() {
@@ -58,14 +85,16 @@ async function handleAddMember() {
   }
 
   clearMessages()
-  localError.value = validateEmail(inviteEmail.value)
-  if (localError.value) {
+  if (!selectedUserId.value) {
+    localError.value = '請選擇要加入的使用者'
     return
   }
 
+  localError.value = null
+
   try {
-    await addMember(tripId.value, inviteEmail.value, inviteRole.value)
-    inviteEmail.value = ''
+    await addMember(tripId.value, selectedUserId.value, inviteRole.value)
+    selectedUserId.value = ''
     inviteRole.value = 'viewer'
   } catch (error) {
     localError.value = error instanceof Error ? error.message : '新增成員失敗'
@@ -110,7 +139,7 @@ function displayName(member: (typeof members.value)[number]): string {
 <template>
   <section class="page">
     <h1 class="page-title">旅行成員</h1>
-    <p class="page-subtitle">owner 可新增成員、調整角色與移除成員。</p>
+    <p class="page-subtitle">owner 可從已註冊使用者中挑選成員。</p>
 
     <p v-if="localError || errorMessage" class="message-error" role="alert">
       {{ localError || errorMessage }}
@@ -121,17 +150,33 @@ function displayName(member: (typeof members.value)[number]): string {
 
     <div v-if="canManageMembers" class="card">
       <h2 class="section-title">新增成員</h2>
-      <p class="hint">對方必須已用該 Email 完成註冊／登入。</p>
+      <p class="hint">從已註冊的朋友中選擇，不用手動輸入 Email。</p>
+
       <form class="invite-form" @submit.prevent="handleAddMember">
         <label class="field">
-          <span class="label">Email</span>
-          <input
-            v-model="inviteEmail"
+          <span class="label">選擇使用者</span>
+          <select
+            v-model="selectedUserId"
             class="input"
-            type="email"
-            placeholder="friend@example.com"
-            :disabled="isSaving"
-          />
+            :disabled="isSaving || isLoadingUsers"
+          >
+            <option value="">
+              {{
+                isLoadingUsers
+                  ? '載入中…'
+                  : candidateUsers.length === 0
+                    ? '目前沒有可新增的人'
+                    : '請選擇'
+              }}
+            </option>
+            <option
+              v-for="appUser in candidateUsers"
+              :key="appUser.id"
+              :value="appUser.id"
+            >
+              {{ userLabel(appUser) }}
+            </option>
+          </select>
         </label>
         <label class="field">
           <span class="label">角色</span>
@@ -141,7 +186,11 @@ function displayName(member: (typeof members.value)[number]): string {
             <option value="owner">擁有者</option>
           </select>
         </label>
-        <button class="btn btn-primary" type="submit" :disabled="isSaving">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          :disabled="isSaving || !selectedUserId"
+        >
           {{ isSaving ? '處理中…' : '新增成員' }}
         </button>
       </form>
@@ -180,7 +229,7 @@ function displayName(member: (typeof members.value)[number]): string {
           </select>
           <button
             type="button"
-            class="btn btn-danger-outline"
+            class="btn-danger-outline"
             :disabled="isSaving || member.user_id === user?.id"
             @click="memberPendingRemove = member.id"
           >

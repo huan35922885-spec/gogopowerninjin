@@ -29,6 +29,13 @@ export interface TripMemberWithProfile extends TripMember {
   } | null
 }
 
+/** 可供邀請的 App 使用者 */
+export interface AppUser {
+  id: string
+  display_name: string | null
+  email: string | null
+}
+
 export interface TripFormValues {
   title: string
   destination: string

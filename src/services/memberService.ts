@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabaseClient'
 import { toReadableError } from '@/utils/errors'
-import type { TripMemberWithProfile, TripRole } from '@/types/trip'
+import type { AppUser, TripMemberWithProfile, TripRole } from '@/types/trip'
 
 /**
  * 取得目前使用者在指定旅行的角色。
@@ -70,16 +70,31 @@ export async function listTripMembers(tripId: string): Promise<TripMemberWithPro
   })
 }
 
-/** 以 Email 新增成員（需先執行 007 SQL migration） */
-export async function addMemberByEmail(
+/** 列出所有已註冊使用者（需執行 008 SQL） */
+export async function listAppUsers(): Promise<AppUser[]> {
+  const { data, error } = await supabase.rpc('list_app_users')
+
+  if (error) {
+    throw new Error(toReadableError(error, '無法載入使用者列表'))
+  }
+
+  return (data ?? []).map((row: { id: string; display_name: string | null; email: string | null }) => ({
+    id: row.id,
+    display_name: row.display_name ?? null,
+    email: row.email ?? null,
+  }))
+}
+
+/** 以使用者 id 新增成員（RLS：僅 owner） */
+export async function addMemberByUserId(
   tripId: string,
-  email: string,
+  userId: string,
   role: TripRole,
 ): Promise<void> {
-  const { error } = await supabase.rpc('add_trip_member_by_email', {
-    p_trip_id: tripId,
-    p_email: email.trim(),
-    p_role: role,
+  const { error } = await supabase.from('trip_members').insert({
+    trip_id: tripId,
+    user_id: userId,
+    role,
   })
 
   if (error) {

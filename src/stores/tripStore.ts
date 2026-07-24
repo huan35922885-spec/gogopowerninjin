@@ -141,11 +141,11 @@ export const useTripStore = defineStore('trip', () => {
     members.value = await memberService.listTripMembers(tripId)
   }
 
-  async function addMember(tripId: string, email: string, role: TripRole) {
+  async function addMember(tripId: string, userId: string, role: TripRole) {
     clearMessages()
     isSaving.value = true
     try {
-      await memberService.addMemberByEmail(tripId, email, role)
+      await memberService.addMemberByUserId(tripId, userId, role)
       successMessage.value = '成員已新增'
       await refreshMembers(tripId)
     } catch (error) {

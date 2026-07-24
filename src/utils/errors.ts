@@ -40,8 +40,15 @@ export function toReadableError(error: unknown, fallback = '操作失敗，請�
     return '沒有權限執行此操作。請確認已登入，且 SQL migrations（含 GRANT）已執行完成'
   }
 
-  if (combined.includes('rate limit') || combined.includes('too many')) {
-    return '請求過於頻繁，請稍後再試'
+  if (
+    combined.includes('list_app_users') &&
+    (combined.includes('not find') || code === 'PGRST202')
+  ) {
+    return '找不到 list_app_users 函式。請到 Supabase SQL Editor 執行 supabase/migrations/008_list_app_users.sql'
+  }
+
+  if (combined.includes('duplicate key') || code === '23505') {
+    return '此使用者已是旅行成員'
   }
 
   if (
