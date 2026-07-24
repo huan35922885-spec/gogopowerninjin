@@ -44,12 +44,34 @@ export function toReadableError(error: unknown, fallback = '操作失敗，請�
     return '請求過於頻繁，請稍後再試'
   }
 
+  if (
+    combined.includes('invalid login credentials') ||
+    combined.includes('invalid email or password')
+  ) {
+    return 'Email 或密碼不正確'
+  }
+
+  if (
+    combined.includes('user already registered') ||
+    combined.includes('already been registered')
+  ) {
+    return '此 Email 已註冊，請直接登入'
+  }
+
+  if (combined.includes('password') && combined.includes('at least')) {
+    return '密碼至少需要 6 個字元'
+  }
+
+  if (combined.includes('signup is disabled')) {
+    return '目前無法註冊，請確認 Supabase Email 註冊已開啟'
+  }
+
   if (combined.includes('invalid login') || combined.includes('invalid email')) {
     return 'Email 格式不正確，請重新確認'
   }
 
   if (combined.includes('email not confirmed')) {
-    return '請先完成 Email 驗證'
+    return '此帳號仍需 Email 驗證。請到 Supabase → Authentication → Providers → Email，關閉 Confirm email'
   }
 
   if (combined.includes('user not found')) {

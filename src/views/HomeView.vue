@@ -25,7 +25,7 @@ const { isAuthenticated, user } = useAuth()
 
     <div v-else class="card welcome-card">
       <p class="hello">準備出發了嗎？</p>
-      <p class="hint">用 Email Magic Link 登入，立刻開始共同編輯。</p>
+      <p class="hint">用 Email 與密碼登入或註冊，立刻開始共同編輯。</p>
       <RouterLink class="btn btn-primary btn-block" to="/login">立即登入</RouterLink>
     </div>
 

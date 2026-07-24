@@ -5,7 +5,7 @@ export interface AuthUser {
   email: string | null
 }
 
-export interface MagicLinkResult {
-  success: true
-  message: string
+export interface AuthCredentials {
+  email: string
+  password: string
 }

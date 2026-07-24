@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import type { Session } from '@supabase/supabase-js'
-import type { AuthUser } from '@/types/auth'
+import type { AuthCredentials, AuthUser } from '@/types/auth'
 import * as authService from '@/services/authService'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -48,16 +48,36 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function sendMagicLink(email: string) {
+  async function signIn(credentials: AuthCredentials) {
     clearMessages()
     isLoading.value = true
 
     try {
-      await authService.sendMagicLink(email)
-      successMessage.value = '登入連結已寄出，請到信箱點擊連結完成登入。'
+      const nextSession = await authService.signInWithPassword(credentials)
+      applySession(nextSession)
+      successMessage.value = '登入成功'
+      return nextSession
     } catch (error) {
       errorMessage.value =
-        error instanceof Error ? error.message : '無法發送登入連結，請稍後再試'
+        error instanceof Error ? error.message : '登入失敗，請稍後再試'
+      throw error
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  async function signUp(credentials: AuthCredentials) {
+    clearMessages()
+    isLoading.value = true
+
+    try {
+      const nextSession = await authService.signUpWithPassword(credentials)
+      applySession(nextSession)
+      successMessage.value = '註冊成功，已自動登入'
+      return nextSession
+    } catch (error) {
+      errorMessage.value =
+        error instanceof Error ? error.message : '註冊失敗，請稍後再試'
       throw error
     } finally {
       isLoading.value = false
@@ -97,7 +117,8 @@ export const useAuthStore = defineStore('auth', () => {
     successMessage,
     isAuthenticated,
     initialize,
-    sendMagicLink,
+    signIn,
+    signUp,
     signOut,
     clearMessages,
     dispose,

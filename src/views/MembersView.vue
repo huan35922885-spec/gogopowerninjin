@@ -121,7 +121,7 @@ function displayName(member: (typeof members.value)[number]): string {
 
     <div v-if="canManageMembers" class="card">
       <h2 class="section-title">新增成員</h2>
-      <p class="hint">對方必須已用該 Email 完成過 Magic Link 登入。</p>
+      <p class="hint">對方必須已用該 Email 完成註冊／登入。</p>
       <form class="invite-form" @submit.prevent="handleAddMember">
         <label class="field">
           <span class="label">Email</span>

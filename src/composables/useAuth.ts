@@ -23,7 +23,8 @@ export function useAuth() {
     isLoading,
     errorMessage,
     successMessage,
-    sendMagicLink: authStore.sendMagicLink,
+    signIn: authStore.signIn,
+    signUp: authStore.signUp,
     signOut: authStore.signOut,
     clearMessages: authStore.clearMessages,
   }
