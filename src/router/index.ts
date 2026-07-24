@@ -74,6 +74,11 @@ const router = createRouter({
               component: () => import('@/views/RestaurantsView.vue'),
             },
             {
+              path: 'polls',
+              name: 'trip-polls',
+              component: () => import('@/views/PollsView.vue'),
+            },
+            {
               path: 'checklist',
               name: 'trip-checklist',
               component: () => import('@/views/ChecklistView.vue'),

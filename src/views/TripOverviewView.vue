@@ -111,7 +111,7 @@ async function handleDelete() {
           {{ formatDateRange(currentTrip.start_date, currentTrip.end_date) }}
         </p>
 
-        <div class="card">
+        <div class="card info-card">
           <p v-if="countdown" class="countdown chip chip-green">{{ countdown.label }}</p>
           <p v-if="currentTrip.description">{{ currentTrip.description }}</p>
           <p v-else class="muted">尚未填寫旅行介紹。</p>
@@ -139,16 +139,6 @@ async function handleDelete() {
                 {{ (member.profile?.display_name || '?').slice(0, 1) }}
               </span>
             </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 class="section-title">快速入口</h2>
-          <div class="quick-links">
-            <RouterLink class="quick pink" :to="`/trips/${tripId}/itinerary`">每日行程</RouterLink>
-            <RouterLink class="quick green" :to="`/trips/${tripId}/restaurants`">餐廳候選</RouterLink>
-            <RouterLink class="quick purple" :to="`/trips/${tripId}/checklist`">行李清單</RouterLink>
-            <RouterLink class="quick soft" :to="`/trips/${tripId}/members`">旅行成員</RouterLink>
           </div>
         </div>
 
@@ -267,47 +257,8 @@ async function handleDelete() {
   margin-bottom: 0.75rem;
 }
 
-.quick-links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-}
-
-.quick {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0.75rem;
-  border-radius: var(--radius-sm);
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.quick:hover {
-  text-decoration: none;
-  filter: brightness(0.98);
-}
-
-.quick.pink {
-  background: var(--color-pink-soft);
-  color: var(--color-pink-deep);
-}
-
-.quick.green {
-  background: var(--color-green-soft);
-  color: var(--color-green-deep);
-}
-
-.quick.purple {
-  background: var(--color-purple-soft);
-  color: var(--color-purple-deep);
-}
-
-.quick.soft {
-  background: #fff;
-  border: 1.5px solid var(--color-border);
-  color: var(--color-text);
+.info-card {
+  padding: 1.35rem 1.4rem;
 }
 
 .owner-actions {
@@ -315,5 +266,17 @@ async function handleDelete() {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 0.5rem;
+}
+
+@media (min-width: 860px) {
+  .hero {
+    height: 12rem;
+    margin: 0 0 1.25rem;
+    border-radius: var(--radius);
+  }
+
+  .info-card {
+    max-width: 40rem;
+  }
 }
 </style>

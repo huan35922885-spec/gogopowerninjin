@@ -47,6 +47,21 @@ export function toReadableError(error: unknown, fallback = '操作失敗，請�
     return '找不到 list_app_users 函式。請到 Supabase SQL Editor 執行 supabase/migrations/008_list_app_users.sql'
   }
 
+  if (
+    combined.includes('create_poll') &&
+    (combined.includes('not find') || code === 'PGRST202')
+  ) {
+    return '找不到 create_poll 函式。請到 Supabase SQL Editor 執行 supabase/migrations/010_polls.sql'
+  }
+
+  if (combined.includes('at least 2 options')) {
+    return '請至少提供 2 個選項'
+  }
+
+  if (combined.includes('poll is closed')) {
+    return '此投票已結束，無法再投票'
+  }
+
   if (combined.includes('duplicate key') || code === '23505') {
     return '此使用者已是旅行成員'
   }
