@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
 
 const router = useRouter()
-const { user, isAuthenticated, isLoading, signOut } = useAuth()
+const { user, profile, displayLabel, isAuthenticated, isLoading, signOut } = useAuth()
 
 async function handleSignOut() {
   try {
@@ -23,9 +23,13 @@ async function handleSignOut() {
         <RouterLink to="/" class="nav-link">首頁</RouterLink>
         <RouterLink to="/trips" class="nav-link">旅行</RouterLink>
         <template v-if="isAuthenticated">
-          <span class="user-email" :title="user?.email ?? ''">
-            {{ user?.email }}
-          </span>
+          <RouterLink to="/profile" class="profile-link" :title="user?.email ?? ''">
+            <span class="nav-avatar">
+              <img v-if="profile?.avatar_url" :src="profile.avatar_url" alt="" />
+              <span v-else>{{ displayLabel.slice(0, 1) }}</span>
+            </span>
+            <span class="nav-name">{{ displayLabel }}</span>
+          </RouterLink>
           <button
             class="btn btn-secondary sign-out"
             type="button"
@@ -123,14 +127,52 @@ async function handleSignOut() {
   color: var(--color-pink-deep);
 }
 
-.user-email {
-  max-width: 8.5rem;
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.25rem 0.55rem 0.25rem 0.25rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.profile-link:hover,
+.profile-link.router-link-active {
+  text-decoration: none;
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
+}
+
+.nav-avatar {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-purple-soft);
+  color: var(--color-purple-deep);
+  font-size: 0.8rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-name {
+  max-width: 6.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
-  padding: 0 0.25rem;
 }
 
 .sign-out {

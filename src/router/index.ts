@@ -30,6 +30,12 @@ const router = createRouter({
           component: () => import('@/views/LoginView.vue'),
         },
         {
+          path: 'profile',
+          name: 'profile',
+          meta: { requiresAuth: true },
+          component: () => import('@/views/ProfileView.vue'),
+        },
+        {
           path: 'access-denied',
           name: 'access-denied',
           meta: { requiresAuth: true },

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
 
-const { isAuthenticated, user } = useAuth()
+const { isAuthenticated, displayLabel } = useAuth()
 </script>
 
 <template>
@@ -15,11 +15,12 @@ const { isAuthenticated, user } = useAuth()
     </div>
 
     <div v-if="isAuthenticated" class="card welcome-card">
-      <p class="hello">嗨，{{ user?.email }}</p>
+      <p class="hello">嗨，{{ displayLabel }}</p>
       <p class="hint">今天想規劃哪一趟旅行？</p>
       <div class="cta-row">
         <RouterLink class="btn btn-primary btn-block" to="/trips">查看我的旅行</RouterLink>
         <RouterLink class="btn btn-ghost btn-block" to="/trips/new">建立新旅行</RouterLink>
+        <RouterLink class="btn btn-secondary btn-block" to="/profile">編輯個人資料</RouterLink>
       </div>
     </div>
 

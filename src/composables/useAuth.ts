@@ -9,23 +9,31 @@ export function useAuth() {
   const authStore = useAuthStore()
   const {
     user,
+    profile,
     isAuthenticated,
     isInitialized,
     isLoading,
+    isSavingProfile,
     errorMessage,
     successMessage,
+    displayLabel,
   } = storeToRefs(authStore)
 
   return {
     user,
+    profile,
     isAuthenticated,
     isInitialized,
     isLoading,
+    isSavingProfile,
     errorMessage,
     successMessage,
+    displayLabel,
     signIn: authStore.signIn,
     signUp: authStore.signUp,
     signOut: authStore.signOut,
+    loadProfile: authStore.loadProfile,
+    updateMyProfile: authStore.updateMyProfile,
     clearMessages: authStore.clearMessages,
   }
 }
