@@ -343,13 +343,25 @@ function displayName(member: (typeof members.value)[number]): string {
 
 .member-actions {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 .role-select {
-  flex: 1;
-  min-width: 7rem;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 480px) {
+  .member-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .role-select {
+    flex: 1;
+    min-width: 7rem;
+  }
 }
 
 .btn-danger-outline {

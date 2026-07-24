@@ -67,6 +67,7 @@ onMounted(() => {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .create-link {
@@ -74,6 +75,13 @@ onMounted(() => {
   text-decoration: none;
   min-height: 44px;
   padding: 0.45rem 0.9rem;
+}
+
+@media (max-width: 479px) {
+  .create-link {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .trip-list {

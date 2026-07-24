@@ -194,6 +194,7 @@ async function confirmDelete() {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .create-btn {
@@ -205,6 +206,12 @@ async function confirmDelete() {
   background: linear-gradient(135deg, var(--color-pink) 0%, #f078a4 100%);
   color: #fff;
   font-weight: 800;
+}
+
+@media (max-width: 479px) {
+  .create-btn {
+    width: 100%;
+  }
 }
 
 .form-title {

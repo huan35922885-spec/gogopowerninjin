@@ -246,6 +246,7 @@ async function confirmDelete() {
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .page-head .page-subtitle {
@@ -255,6 +256,12 @@ async function confirmDelete() {
 .page-head .btn {
   flex-shrink: 0;
   min-height: 44px;
+}
+
+@media (max-width: 479px) {
+  .page-head .btn {
+    width: 100%;
+  }
 }
 
 .poll-section {

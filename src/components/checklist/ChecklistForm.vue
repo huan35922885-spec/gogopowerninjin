@@ -106,6 +106,7 @@ function handleSubmit() {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  min-width: 0;
 }
 
 .label {
@@ -120,8 +121,23 @@ function handleSubmit() {
 
 .actions {
   display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.actions .btn {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .actions .btn {
+    width: auto;
+  }
 }
 </style>

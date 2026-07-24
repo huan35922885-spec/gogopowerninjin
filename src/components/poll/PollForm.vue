@@ -286,6 +286,11 @@ function handleSubmit() {
   align-items: center;
 }
 
+.option-row .input {
+  flex: 1;
+  min-width: 0;
+}
+
 .btn-icon {
   min-width: 44px;
   min-height: 44px;
@@ -335,7 +340,22 @@ function handleSubmit() {
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.actions .btn {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .actions .btn {
+    width: auto;
+  }
 }
 </style>

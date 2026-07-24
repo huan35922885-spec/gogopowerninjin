@@ -201,6 +201,8 @@ button {
 /* —— Form inputs —— */
 .input {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 44px;
   padding: 0.65rem 0.8rem;
   border: 1.5px solid var(--color-border);
@@ -208,7 +210,20 @@ button {
   font: inherit;
   background: #fff;
   color: var(--color-text);
+  box-sizing: border-box;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* 原生 time/date 在手機上有較大 intrinsic width，需強制可縮小 */
+input.input[type='time'],
+input.input[type='date'],
+input.input[type='datetime-local'],
+select.input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding-left: 0.55rem;
+  padding-right: 0.55rem;
 }
 
 .input:focus {
