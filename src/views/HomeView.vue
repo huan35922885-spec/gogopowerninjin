@@ -9,9 +9,6 @@ const { isAuthenticated, displayLabel } = useAuth()
     <div class="hero">
       <p class="eyebrow">和朋友一起玩</p>
       <h1 class="brand-title">旅遊規劃</h1>
-      <p class="lead">
-        一起編輯行程、餐廳候選與行李清單，讓三天兩夜更好玩。
-      </p>
     </div>
 
     <div v-if="isAuthenticated" class="card welcome-card">
@@ -28,21 +25,6 @@ const { isAuthenticated, displayLabel } = useAuth()
       <p class="hello">準備出發了嗎？</p>
       <p class="hint">用 Email 與密碼登入或註冊，立刻開始共同編輯。</p>
       <RouterLink class="btn btn-primary btn-block" to="/login">立即登入</RouterLink>
-    </div>
-
-    <div class="feature-grid">
-      <div class="feature pink">
-        <span class="feature-label">行程</span>
-        <p>依天數排時間軸</p>
-      </div>
-      <div class="feature green">
-        <span class="feature-label">餐廳</span>
-        <p>候選一起挑</p>
-      </div>
-      <div class="feature purple">
-        <span class="feature-label">行李</span>
-        <p>勾選不漏帶</p>
-      </div>
     </div>
   </section>
 </template>
@@ -71,12 +53,6 @@ const { isAuthenticated, displayLabel } = useAuth()
   color: transparent;
 }
 
-.lead {
-  margin: 0;
-  font-size: 1.02rem;
-  max-width: 22rem;
-}
-
 .welcome-card {
   margin-bottom: 1.25rem;
 }
@@ -96,48 +72,5 @@ const { isAuthenticated, displayLabel } = useAuth()
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
-}
-
-@media (min-width: 420px) {
-  .feature-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.feature {
-  border-radius: var(--radius);
-  padding: 0.9rem;
-  border: 1px solid transparent;
-}
-
-.feature p {
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--color-text-muted);
-}
-
-.feature-label {
-  display: block;
-  font-weight: 800;
-  margin-bottom: 0.2rem;
-  color: var(--color-text);
-}
-
-.feature.pink {
-  background: var(--color-pink-soft);
-}
-
-.feature.green {
-  background: var(--color-green-soft);
-}
-
-.feature.purple {
-  background: var(--color-purple-soft);
 }
 </style>
