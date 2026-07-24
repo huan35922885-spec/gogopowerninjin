@@ -17,7 +17,6 @@ const { isAuthenticated, displayLabel } = useAuth()
       <div class="cta-row">
         <RouterLink class="btn btn-primary btn-block" to="/trips">查看我的旅行</RouterLink>
         <RouterLink class="btn btn-ghost btn-block" to="/trips/new">建立新旅行</RouterLink>
-        <RouterLink class="btn btn-secondary btn-block" to="/profile">編輯個人資料</RouterLink>
       </div>
     </div>
 
