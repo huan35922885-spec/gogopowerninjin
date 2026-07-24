@@ -22,7 +22,6 @@ function validateEmail(value: string): string | null {
   if (!trimmed) {
     return '請輸入 Email'
   }
-  // 簡單驗證即可，第一版不引入表單套件
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
     return 'Email 格式不正確'
   }
@@ -60,7 +59,7 @@ onMounted(() => {
     <h1 class="page-title">登入</h1>
     <p class="page-subtitle">輸入 Email，我們會寄送 Magic Link 給你。</p>
 
-    <div class="card">
+    <div class="card login-card">
       <form class="login-form" @submit.prevent="handleSubmit">
         <label class="field" for="email">
           <span class="label">Email</span>
@@ -76,14 +75,14 @@ onMounted(() => {
           />
         </label>
 
-        <p v-if="localError || errorMessage" class="message message-error" role="alert">
+        <p v-if="localError || errorMessage" class="message-error" role="alert">
           {{ localError || errorMessage }}
         </p>
-        <p v-if="successMessage" class="message message-success" role="status">
+        <p v-if="successMessage" class="message-success" role="status">
           {{ successMessage }}
         </p>
 
-        <button class="submit" type="submit" :disabled="isLoading">
+        <button class="btn btn-primary btn-block" type="submit" :disabled="isLoading">
           {{ isLoading ? '傳送中…' : '寄送登入連結' }}
         </button>
       </form>
@@ -92,6 +91,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.login-card {
+  border-top: 3px solid var(--color-pink);
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -106,56 +109,7 @@ onMounted(() => {
 
 .label {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
-}
-
-.input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-  color: var(--color-text);
-}
-
-.input:focus {
-  outline: 2px solid var(--color-primary-soft);
-  border-color: var(--color-primary);
-}
-
-.input:disabled {
-  opacity: 0.7;
-}
-
-.message {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.message-error {
-  color: var(--color-danger);
-}
-
-.message-success {
-  color: var(--color-primary);
-}
-
-.submit {
-  min-height: 48px;
-  border: none;
-  border-radius: 10px;
-  background: var(--color-primary);
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.submit:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
 }
 </style>

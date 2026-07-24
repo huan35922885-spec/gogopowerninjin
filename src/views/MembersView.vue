@@ -207,6 +207,7 @@ function displayName(member: (typeof members.value)[number]): string {
 .section-title {
   font-size: 1.05rem;
   margin-bottom: 0.35rem;
+  color: var(--color-purple-deep);
 }
 
 .hint {
@@ -228,17 +229,7 @@ function displayName(member: (typeof members.value)[number]): string {
 
 .label {
   font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
+  font-weight: 700;
 }
 
 .member-list {
@@ -266,12 +257,12 @@ function displayName(member: (typeof members.value)[number]): string {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -284,19 +275,21 @@ function displayName(member: (typeof members.value)[number]): string {
 
 .name {
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
 }
 
 .you {
-  font-weight: 500;
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--color-purple);
   font-size: 0.85rem;
 }
 
 .role-text {
   margin: 0.15rem 0 0;
   font-size: 0.85rem;
+  color: var(--color-green-deep);
+  font-weight: 700;
 }
 
 .member-actions {
@@ -310,35 +303,18 @@ function displayName(member: (typeof members.value)[number]): string {
   min-width: 7rem;
 }
 
-.btn {
+.btn-danger-outline {
   min-height: 44px;
   padding: 0.5rem 1rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  border: 1.5px solid var(--color-danger);
+  color: var(--color-danger);
+  font-weight: 700;
 }
 
-.btn:disabled {
+.btn-danger-outline:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.btn-danger-outline {
-  background: #fff;
-  border: 1px solid var(--color-danger);
-  color: var(--color-danger);
-}
-
-.message-error {
-  color: var(--color-danger);
-}
-
-.message-success {
-  color: var(--color-primary);
 }
 </style>

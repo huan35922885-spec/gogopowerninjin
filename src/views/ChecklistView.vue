@@ -263,10 +263,10 @@ async function confirmDelete() {
   min-height: 44px;
   padding: 0.5rem 0.9rem;
   border: none;
-  border-radius: 10px;
-  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-pink) 0%, #f078a4 100%);
   color: #fff;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .form-title,
@@ -275,20 +275,17 @@ async function confirmDelete() {
   margin-bottom: 0.5rem;
 }
 
+.section-title {
+  color: var(--color-green-deep);
+}
+
 .form-card {
   margin-bottom: 1rem;
+  border-top: 3px solid var(--color-green);
 }
 
 .empty {
   margin: 0;
   font-size: 0.9rem;
-}
-
-.message-error {
-  color: var(--color-danger);
-}
-
-.message-success {
-  color: var(--color-primary);
 }
 </style>

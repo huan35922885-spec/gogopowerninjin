@@ -189,32 +189,12 @@ function handleSubmit() {
 
 .label {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .label em {
   color: var(--color-danger);
   font-style: normal;
-}
-
-.input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-}
-
-.textarea {
-  min-height: 5rem;
-  resize: vertical;
-}
-
-.field-error {
-  color: var(--color-danger);
-  font-size: 0.85rem;
 }
 
 .row {
@@ -234,29 +214,5 @@ function handleSubmit() {
   gap: 0.75rem;
   justify-content: flex-end;
   flex-wrap: wrap;
-}
-
-.btn {
-  min-height: 48px;
-  padding: 0.5rem 1.1rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
-}
-
-.btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.btn-secondary {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
 }
 </style>

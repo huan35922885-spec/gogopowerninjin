@@ -47,14 +47,22 @@ export async function createTrip(input: CreateTripInput): Promise<Trip> {
   })
 
   if (error) {
+    console.error('[createTrip] Supabase error:', error)
     throw new Error(toReadableError(error, '建立旅行失敗'))
   }
 
   if (!data) {
-    throw new Error('建立旅行失敗，未取得回傳資料')
+    throw new Error('建立旅行失敗，未取得回傳資料。請確認 create_trip RPC 已正確建立。')
   }
 
-  return mapTrip(data as Trip)
+  // PostgREST 有時回傳物件，有時是單元素陣列
+  const row = Array.isArray(data) ? data[0] : data
+  if (!row || typeof row !== 'object' || !('id' in row)) {
+    console.error('[createTrip] unexpected payload:', data)
+    throw new Error('建立旅行失敗，回傳資料格式不正確')
+  }
+
+  return mapTrip(row as Trip)
 }
 
 /** 更新旅行基本資訊（RLS：僅 owner） */

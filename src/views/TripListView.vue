@@ -19,7 +19,7 @@ onMounted(() => {
         <h1 class="page-title">我的旅行</h1>
         <p class="page-subtitle">查看並管理你參與的旅行。</p>
       </div>
-      <RouterLink class="create-link" to="/trips/new">建立旅行</RouterLink>
+      <RouterLink class="btn btn-primary create-link" to="/trips/new">建立旅行</RouterLink>
     </div>
 
     <p v-if="errorMessage" class="message-error" role="alert">{{ errorMessage }}</p>
@@ -31,22 +31,26 @@ onMounted(() => {
       title="還沒有旅行"
       description="建立第一趟旅行，開始和朋友一起規劃吧。"
     >
-      <RouterLink to="/trips/new">立即建立</RouterLink>
+      <RouterLink class="btn btn-primary" to="/trips/new">立即建立</RouterLink>
     </EmptyState>
 
     <ul v-else class="trip-list">
       <li v-for="trip in trips" :key="trip.id">
-        <RouterLink class="trip-card card" :to="`/trips/${trip.id}`">
+        <RouterLink class="trip-card card card-lift" :to="`/trips/${trip.id}`">
           <div
-            v-if="trip.cover_image_url"
             class="cover"
-            :style="{ backgroundImage: `url(${trip.cover_image_url})` }"
+            :class="{ placeholder: !trip.cover_image_url }"
+            :style="
+              trip.cover_image_url
+                ? { backgroundImage: `url(${trip.cover_image_url})` }
+                : undefined
+            "
           />
           <div class="trip-body">
             <h2 class="trip-title">{{ trip.title }}</h2>
             <p class="meta">{{ trip.destination || '未設定目的地' }}</p>
             <p class="meta">{{ formatDateRange(trip.start_date, trip.end_date) }}</p>
-            <p class="countdown">
+            <p class="countdown chip chip-green">
               {{ getCountdownDays(trip.start_date, trip.end_date).label }}
             </p>
           </div>
@@ -67,19 +71,9 @@ onMounted(() => {
 
 .create-link {
   flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0.5rem 0.9rem;
-  border-radius: 10px;
-  background: var(--color-primary);
-  color: #fff;
-  font-weight: 600;
   text-decoration: none;
-}
-
-.message-error {
-  color: var(--color-danger);
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
 }
 
 .trip-list {
@@ -88,7 +82,7 @@ onMounted(() => {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .trip-card {
@@ -97,6 +91,7 @@ onMounted(() => {
   color: inherit;
   overflow: hidden;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .trip-card:hover {
@@ -104,14 +99,23 @@ onMounted(() => {
 }
 
 .cover {
-  height: 8rem;
+  height: 9rem;
   background-size: cover;
   background-position: center;
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-pink-soft);
+}
+
+.cover.placeholder {
+  background: linear-gradient(
+    135deg,
+    var(--color-pink-soft) 0%,
+    var(--color-purple-soft) 55%,
+    var(--color-green-soft) 100%
+  );
 }
 
 .trip-body {
-  padding: 1rem;
+  padding: 1rem 1.1rem 1.15rem;
 }
 
 .trip-title {
@@ -125,9 +129,6 @@ onMounted(() => {
 }
 
 .countdown {
-  margin: 0.5rem 0 0;
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 0.9rem;
+  margin: 0.65rem 0 0;
 }
 </style>

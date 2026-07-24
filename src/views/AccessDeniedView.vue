@@ -15,8 +15,8 @@ const tripId = typeof route.query.tripId === 'string' ? route.query.tripId : nul
       <p v-if="tripId">旅行 ID：{{ tripId }}</p>
       <p>請向旅行的 owner 確認是否已將你加入成員。</p>
       <div class="actions">
-        <RouterLink to="/trips">回到旅行列表</RouterLink>
-        <RouterLink to="/">回首頁</RouterLink>
+        <RouterLink class="btn btn-primary" to="/trips">回到旅行列表</RouterLink>
+        <RouterLink class="btn btn-ghost" to="/">回首頁</RouterLink>
       </div>
     </div>
   </section>

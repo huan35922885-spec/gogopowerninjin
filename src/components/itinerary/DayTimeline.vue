@@ -63,16 +63,17 @@ const emit = defineEmits<{
 .day-title {
   margin: 0;
   font-size: 1.15rem;
+  color: var(--color-purple-deep);
 }
 
 .add-btn {
   min-height: 40px;
   padding: 0.35rem 0.85rem;
-  border-radius: 8px;
+  border-radius: var(--radius-pill);
   border: none;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
-  font-weight: 600;
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
+  font-weight: 800;
 }
 
 .empty {

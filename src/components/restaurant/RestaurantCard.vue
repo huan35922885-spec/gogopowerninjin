@@ -68,23 +68,23 @@ const emit = defineEmits<{
 }
 
 .status {
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: var(--color-purple-soft);
+  color: var(--color-purple-deep);
 }
 
 .status[data-status='selected'] {
-  background: #e7f6ea;
-  color: #2f6b3c;
+  background: var(--color-green-soft);
+  color: var(--color-green-deep);
 }
 
 .status[data-status='rejected'] {
-  background: #f8e8e5;
+  background: var(--color-danger-soft);
   color: var(--color-danger);
 }
 
 .meal {
-  background: #f3f0ea;
-  color: var(--color-text-muted);
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
 }
 
 .name {
@@ -115,8 +115,8 @@ const emit = defineEmits<{
   padding: 0.25rem 0.1rem;
   border: none;
   background: transparent;
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--color-purple);
+  font-weight: 700;
 }
 
 .btn-text.danger {

@@ -38,7 +38,7 @@ async function handleSubmit(values: TripFormValues) {
     <h1 class="page-title">建立旅行</h1>
     <p class="page-subtitle">填寫基本資訊，建立後你會成為 owner。</p>
 
-    <div class="card">
+    <div class="card create-card">
       <p v-if="localError || errorMessage" class="message-error" role="alert">
         {{ localError || errorMessage }}
       </p>
@@ -50,13 +50,7 @@ async function handleSubmit(values: TripFormValues) {
 </template>
 
 <style scoped>
-.message-error {
-  color: var(--color-danger);
-  margin-bottom: 0.75rem;
-}
-
-.message-success {
-  color: var(--color-primary);
-  margin-bottom: 0.75rem;
+.create-card {
+  border-top: 3px solid var(--color-pink);
 }
 </style>

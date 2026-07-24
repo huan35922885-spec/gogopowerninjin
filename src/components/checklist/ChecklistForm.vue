@@ -110,7 +110,7 @@ function handleSubmit() {
 
 .label {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .label em {
@@ -118,49 +118,10 @@ function handleSubmit() {
   font-style: normal;
 }
 
-.input {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  font: inherit;
-  background: #fff;
-}
-
-.field-error {
-  color: var(--color-danger);
-  font-size: 0.85rem;
-}
-
 .actions {
   display: flex;
   gap: 0.75rem;
   justify-content: flex-end;
   flex-wrap: wrap;
-}
-
-.btn {
-  min-height: 48px;
-  padding: 0.5rem 1.1rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
-}
-
-.btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.btn-secondary {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
 }
 </style>

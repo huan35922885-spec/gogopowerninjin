@@ -82,7 +82,12 @@ export const useTripStore = defineStore('trip', () => {
     try {
       const trip = await tripService.createTrip(input)
       successMessage.value = '旅行建立成功'
-      await fetchTrips()
+      // 列表更新失敗不應讓「建立」本身看起來失敗
+      try {
+        await fetchTrips()
+      } catch (listError) {
+        console.warn('[createTrip] trip created but list refresh failed:', listError)
+      }
       return trip
     } catch (error) {
       errorMessage.value =

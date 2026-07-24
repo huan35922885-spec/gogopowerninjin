@@ -5,33 +5,138 @@ const { isAuthenticated, user } = useAuth()
 </script>
 
 <template>
-  <section class="page">
-    <h1 class="page-title">一起規劃旅行</h1>
-    <p class="page-subtitle">
-      和朋友共同編輯行程、餐廳候選與行李清單。
-    </p>
-
-    <div v-if="isAuthenticated" class="card">
-      <p>已登入：{{ user?.email }}</p>
-      <ul class="links">
-        <li><RouterLink to="/trips">查看旅行列表</RouterLink></li>
-        <li><RouterLink to="/trips/new">建立新旅行</RouterLink></li>
-      </ul>
+  <section class="page home">
+    <div class="hero">
+      <p class="eyebrow">和朋友一起玩</p>
+      <h1 class="brand-title">旅遊規劃</h1>
+      <p class="lead">
+        一起編輯行程、餐廳候選與行李清單，讓三天兩夜更好玩。
+      </p>
     </div>
 
-    <div v-else class="card">
-      <p>登入後即可建立與編輯旅行。</p>
-      <ul class="links">
-        <li><RouterLink to="/login">使用 Magic Link 登入</RouterLink></li>
-      </ul>
+    <div v-if="isAuthenticated" class="card welcome-card">
+      <p class="hello">嗨，{{ user?.email }}</p>
+      <p class="hint">今天想規劃哪一趟旅行？</p>
+      <div class="cta-row">
+        <RouterLink class="btn btn-primary btn-block" to="/trips">查看我的旅行</RouterLink>
+        <RouterLink class="btn btn-ghost btn-block" to="/trips/new">建立新旅行</RouterLink>
+      </div>
+    </div>
+
+    <div v-else class="card welcome-card">
+      <p class="hello">準備出發了嗎？</p>
+      <p class="hint">用 Email Magic Link 登入，立刻開始共同編輯。</p>
+      <RouterLink class="btn btn-primary btn-block" to="/login">立即登入</RouterLink>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature pink">
+        <span class="feature-label">行程</span>
+        <p>依天數排時間軸</p>
+      </div>
+      <div class="feature green">
+        <span class="feature-label">餐廳</span>
+        <p>候選一起挑</p>
+      </div>
+      <div class="feature purple">
+        <span class="feature-label">行李</span>
+        <p>勾選不漏帶</p>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.links {
+.hero {
+  margin-bottom: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-purple);
+  letter-spacing: 0.04em;
+}
+
+.brand-title {
+  margin: 0 0 0.5rem;
+  font-size: 2.15rem;
+  letter-spacing: -0.03em;
+  background: linear-gradient(120deg, var(--color-pink) 10%, var(--color-purple) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
   margin: 0;
-  padding-left: 1.25rem;
-  line-height: 2;
+  font-size: 1.02rem;
+  max-width: 22rem;
+}
+
+.welcome-card {
+  margin-bottom: 1.25rem;
+}
+
+.hello {
+  margin: 0 0 0.25rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--color-text);
+}
+
+.hint {
+  margin: 0 0 1rem;
+}
+
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+
+@media (min-width: 420px) {
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature {
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  border: 1px solid transparent;
+}
+
+.feature p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.feature-label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+  color: var(--color-text);
+}
+
+.feature.pink {
+  background: var(--color-pink-soft);
+}
+
+.feature.green {
+  background: var(--color-green-soft);
+}
+
+.feature.purple {
+  background: var(--color-purple-soft);
 }
 </style>

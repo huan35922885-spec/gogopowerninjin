@@ -63,9 +63,9 @@ const emit = defineEmits<{
 }
 
 .time {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.9rem;
-  color: var(--color-primary);
+  color: var(--color-purple);
 }
 
 .time-end {
@@ -75,6 +75,19 @@ const emit = defineEmits<{
 
 .content {
   min-width: 0;
+  position: relative;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  left: -0.55rem;
+  top: 0.45rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--color-purple);
+  box-shadow: 0 0 0 3px var(--color-purple-soft);
 }
 
 .top {
@@ -88,10 +101,10 @@ const emit = defineEmits<{
   align-self: flex-start;
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .title {
@@ -123,8 +136,8 @@ const emit = defineEmits<{
   padding: 0.25rem 0.1rem;
   border: none;
   background: transparent;
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--color-purple);
+  font-weight: 700;
 }
 
 .btn-text.danger {

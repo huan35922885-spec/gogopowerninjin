@@ -52,7 +52,7 @@ const emit = defineEmits<{
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(44, 42, 40, 0.45);
+  background: rgba(42, 36, 48, 0.4);
 }
 
 .dialog {
@@ -61,7 +61,8 @@ const emit = defineEmits<{
   background: var(--color-surface);
   border-radius: var(--radius);
   padding: 1.25rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lift);
+  border-top: 3px solid var(--color-purple);
 }
 
 .dialog-title {
@@ -77,34 +78,5 @@ const emit = defineEmits<{
   display: flex;
   gap: 0.75rem;
   justify-content: flex-end;
-}
-
-.btn {
-  min-height: 44px;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
-}
-
-.btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-}
-
-.btn-secondary {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-.btn-danger {
-  background: var(--color-danger);
-  color: #fff;
 }
 </style>

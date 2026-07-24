@@ -236,10 +236,10 @@ async function confirmDelete() {
   min-height: 44px;
   padding: 0.5rem 0.9rem;
   border: none;
-  border-radius: 10px;
-  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-pink) 0%, #f078a4 100%);
   color: #fff;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .filters {
@@ -252,18 +252,18 @@ async function confirmDelete() {
 .filter-btn {
   min-height: 40px;
   padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border);
   background: #fff;
   color: var(--color-text-muted);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .filter-btn.active {
-  background: var(--color-primary-soft);
+  background: var(--color-purple-soft);
   border-color: transparent;
-  color: var(--color-primary);
+  color: var(--color-purple-deep);
 }
 
 .list {
@@ -279,13 +279,6 @@ async function confirmDelete() {
 
 .form-card {
   margin-bottom: 1rem;
-}
-
-.message-error {
-  color: var(--color-danger);
-}
-
-.message-success {
-  color: var(--color-primary);
+  border-top: 3px solid var(--color-green);
 }
 </style>

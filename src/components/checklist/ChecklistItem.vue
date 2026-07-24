@@ -72,11 +72,11 @@ const emit = defineEmits<{
   height: 1.25rem;
   margin-top: 0.15rem;
   flex-shrink: 0;
-  accent-color: var(--color-primary);
+  accent-color: var(--color-green);
 }
 
 .content {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
   line-height: 1.4;
 }
@@ -84,6 +84,8 @@ const emit = defineEmits<{
 .assignee {
   margin: 0.35rem 0 0 1.9rem;
   font-size: 0.85rem;
+  color: var(--color-purple);
+  font-weight: 600;
 }
 
 .actions {
@@ -97,8 +99,8 @@ const emit = defineEmits<{
   padding: 0.25rem 0.1rem;
   border: none;
   background: transparent;
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--color-purple);
+  font-weight: 700;
 }
 
 .btn-text.danger {

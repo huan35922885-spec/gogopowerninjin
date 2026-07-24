@@ -112,19 +112,22 @@ async function handleDelete() {
         </p>
 
         <div class="card">
-          <p v-if="countdown" class="countdown">{{ countdown.label }}</p>
+          <p v-if="countdown" class="countdown chip chip-green">{{ countdown.label }}</p>
           <p v-if="currentTrip.description">{{ currentTrip.description }}</p>
           <p v-else class="muted">尚未填寫旅行介紹。</p>
 
           <div class="meta-row">
-            <span v-if="myRole">我的角色：{{ TRIP_ROLE_LABELS[myRole] }}</span>
+            <span v-if="myRole" class="chip chip-purple">
+              {{ TRIP_ROLE_LABELS[myRole] }}
+            </span>
           </div>
 
           <div class="avatars" aria-label="旅行成員">
             <div
-              v-for="member in members"
+              v-for="(member, index) in members"
               :key="member.id"
               class="avatar"
+              :class="['tone-' + (index % 3)]"
               :title="member.profile?.display_name || member.user_id"
             >
               <img
@@ -142,10 +145,10 @@ async function handleDelete() {
         <div class="card">
           <h2 class="section-title">快速入口</h2>
           <div class="quick-links">
-            <RouterLink :to="`/trips/${tripId}/itinerary`">每日行程</RouterLink>
-            <RouterLink :to="`/trips/${tripId}/restaurants`">餐廳候選</RouterLink>
-            <RouterLink :to="`/trips/${tripId}/checklist`">行李清單</RouterLink>
-            <RouterLink :to="`/trips/${tripId}/members`">旅行成員</RouterLink>
+            <RouterLink class="quick pink" :to="`/trips/${tripId}/itinerary`">每日行程</RouterLink>
+            <RouterLink class="quick green" :to="`/trips/${tripId}/restaurants`">餐廳候選</RouterLink>
+            <RouterLink class="quick purple" :to="`/trips/${tripId}/checklist`">行李清單</RouterLink>
+            <RouterLink class="quick soft" :to="`/trips/${tripId}/members`">旅行成員</RouterLink>
           </div>
         </div>
 
@@ -202,15 +205,12 @@ async function handleDelete() {
   margin: -1rem -1rem 1rem;
   background-size: cover;
   background-position: center;
-  background-color: var(--color-primary-soft);
+  background-color: var(--color-pink-soft);
   border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .countdown {
   margin: 0 0 0.75rem;
-  color: var(--color-primary);
-  font-weight: 700;
-  font-size: 1.05rem;
 }
 
 .muted {
@@ -219,8 +219,6 @@ async function handleDelete() {
 
 .meta-row {
   margin-top: 0.75rem;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
 }
 
 .avatars {
@@ -231,16 +229,31 @@ async function handleDelete() {
 }
 
 .avatar {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.35rem;
+  height: 2.35rem;
   border-radius: 50%;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   overflow: hidden;
+  border: 2px solid #fff;
+  box-shadow: var(--shadow);
+}
+
+.avatar.tone-0 {
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
+}
+
+.avatar.tone-1 {
+  background: var(--color-green-soft);
+  color: var(--color-green-deep);
+}
+
+.avatar.tone-2 {
+  background: var(--color-purple-soft);
+  color: var(--color-purple-deep);
 }
 
 .avatar img {
@@ -260,17 +273,41 @@ async function handleDelete() {
   gap: 0.75rem;
 }
 
-.quick-links a {
+.quick {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
+  min-height: 52px;
   padding: 0.75rem;
-  border-radius: 10px;
-  background: var(--color-primary-soft);
-  color: var(--color-primary);
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
   text-decoration: none;
+}
+
+.quick:hover {
+  text-decoration: none;
+  filter: brightness(0.98);
+}
+
+.quick.pink {
+  background: var(--color-pink-soft);
+  color: var(--color-pink-deep);
+}
+
+.quick.green {
+  background: var(--color-green-soft);
+  color: var(--color-green-deep);
+}
+
+.quick.purple {
+  background: var(--color-purple-soft);
+  color: var(--color-purple-deep);
+}
+
+.quick.soft {
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .owner-actions {
@@ -278,32 +315,5 @@ async function handleDelete() {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 0.5rem;
-}
-
-.btn {
-  min-height: 48px;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  border: none;
-  font-weight: 600;
-}
-
-.btn-secondary {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-}
-
-.btn-danger {
-  background: var(--color-danger);
-  color: #fff;
-}
-
-.message-error {
-  color: var(--color-danger);
-}
-
-.message-success {
-  color: var(--color-primary);
 }
 </style>
